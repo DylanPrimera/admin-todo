@@ -1,4 +1,13 @@
+import { ApiResponse } from "@/types";
 import { Todo } from "@prisma/client";
+
+const sleep = (seconds: number = 0): Promise<boolean> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, seconds * 1000);
+  });
+};
 
 export const createTodo = async (description: string): Promise<Todo> => {
   const body = { description };
@@ -16,6 +25,8 @@ export const updateTodo = async (
   id: string,
   complete: boolean
 ): Promise<Todo> => {
+
+    
   const body = { complete };
   const todo = await fetch(`/api/todos/${id}`, {
     method: "PUT",
@@ -27,14 +38,9 @@ export const updateTodo = async (
   return todo;
 };
 
-interface Response {
-  success: boolean;
-  message?: string;
-  data?: Todo;
-  status?: number;
-}
 
-export const deleteCompletedTodos = async (): Promise<Response> => {
+
+export const deleteCompletedTodos = async (): Promise<ApiResponse> => {
   const response = await fetch("/api/todos", {
     method: "DELETE",
   }).then((res) => res.json());
