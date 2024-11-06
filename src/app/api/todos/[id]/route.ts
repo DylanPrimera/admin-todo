@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import * as yup from "yup";
 import { NextResponse } from "next/server";
+import { Todo } from "@prisma/client";
 
 interface Segments {
   params: {
@@ -8,15 +9,18 @@ interface Segments {
   };
 }
 
-export async function GET(request: Request, segments: Segments) {
-  const { params } = segments;
-  const id = params.id;
-
+const getTodo = async (id: string): Promise<Todo | null> => {
   const todo = await prisma.todo.findFirst({
     where: {
       id: id,
     },
   });
+  return todo;
+};
+
+export async function GET(request: Request, {params}: Segments) {
+
+  const todo = await getTodo(params.id)
 
   if (!todo) {
     return NextResponse.json(
@@ -28,36 +32,31 @@ export async function GET(request: Request, segments: Segments) {
   return NextResponse.json({ success: true, data: todo });
 }
 
-const postSchema = yup.object({
+const putSchema = yup.object({
   description: yup.string().optional(),
   complete: yup.boolean().optional(),
 });
 
-export async function PUT(request: Request, segments: Segments) {
+export async function PUT(request: Request, {params}: Segments) {
+
+  const todo = getTodo(params.id)
+
+  if (!todo) {
+    return NextResponse.json(
+      { message: "todo not found", success: false },
+      { status: 404 }
+    );
+  }
   try {
-    const { params } = segments;
-    const id = params.id;
-
-    const todo = await prisma.todo.findFirst({
-      where: {
-        id: id,
-      },
-    });
-
-    if (!todo) {
-      return NextResponse.json(
-        { message: "todo not found", success: false },
-        { status: 404 }
-      );
-    }
-
-    const body = await postSchema.validate(await request.json());
+    const { description, complete } = await putSchema.validate(
+      await request.json()
+    );
 
     const updatedTodo = await prisma.todo.update({
       where: {
-        id: id,
+        id: params.id,
       },
-      data: body,
+      data: { description, complete },
     });
     return NextResponse.json({ success: true, data: updatedTodo });
   } catch (error) {
