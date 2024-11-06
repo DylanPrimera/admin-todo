@@ -25,8 +25,7 @@ export const updateTodo = async (
   id: string,
   complete: boolean
 ): Promise<Todo> => {
-
-    
+  sleep(3);
   const body = { complete };
   const todo = await fetch(`/api/todos/${id}`, {
     method: "PUT",
@@ -37,8 +36,6 @@ export const updateTodo = async (
   }).then((res) => res.json());
   return todo;
 };
-
-
 
 export const deleteCompletedTodos = async (): Promise<ApiResponse> => {
   const response = await fetch("/api/todos", {
