@@ -1,8 +1,15 @@
+import prisma from "@/lib/prisma";
+import { TodosGrid } from "@/todos";
 
-export default function RestTodosPage() {
+export const metadata = {
+  title: "List of todos",
+  description: "List of todos",
+};
+export default async function RestTodosPage() {
+  const todos = await prisma.todo.findMany({ orderBy: { description: "asc" } });
   return (
     <div>
-      <h1>Res Todos Page</h1>
+      <TodosGrid todos={todos}/>
     </div>
   );
 }
