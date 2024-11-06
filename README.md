@@ -4,7 +4,6 @@ Steps to deploy the app in development mode
 1. Set up the database
 ```
 docker compose up -d
-
 ```
 
 2. Rename the .env.template to .env
@@ -15,13 +14,13 @@ docker compose up -d
     ``
     npx prisma migrate dev
     npx prisma generate``
-7. Execute the seed to [generate local data base](localhost:3000/api/seed)
+7. Execute the seed to [generate local data base] with postman (localhost:3000/api/seed)
 
 # Prisma commands
 
 ```
 npx prisma init
-npx prisma migrate dev
-npx prisma generate
+npx prisma migrate dev (to create the schemas)
+npx prisma generate (to generate the client)
 
 ```
