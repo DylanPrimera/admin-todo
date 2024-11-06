@@ -12,10 +12,10 @@ docker compose up -d
 4. Execute ```npm install```
 5. Execute ```npm run dev```
 6. Execute Prisma commands 
-    ``` 
+    ``
     npx prisma migrate dev
-    npx prisma generate```
-7. Execute the seed to [generate local data base](localhost:3000/api/seed)
+    npx prisma generate``
+7. Execute the seed to [generate local data base(localhost:3000/api/seed)
 
 # Prisma commands
 
