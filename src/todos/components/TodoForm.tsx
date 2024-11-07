@@ -2,29 +2,35 @@
 
 import { FormEvent, useState } from "react";
 import { IoTrashOutline } from "react-icons/io5";
-import * as todoApi from "@/todos/helpers/todos";
-import { useRouter } from "next/navigation";
+// import * as todoApi from "@/todos/helpers/todos";
+// import { useRouter } from "next/navigation";
+import {
+  addTodoAction,
+  deleteCompletedTodosAction,
+} from "../actions/todo-action";
 
 export const TodoForm = () => {
   const [description, setdescription] = useState("");
-  const router = useRouter();
+  //   const router = useRouter();
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (description.trim().length === 0) return;
-    const todo = await todoApi.createTodo(description);
-    if (todo) {
-      router.refresh();
-      setdescription("");
-    }
+    await addTodoAction(description);
+    setdescription("");
+    // const todo = await todoApi.createTodo(description);
+    // if (todo) {
+    //   router.refresh();
+    //   setdescription("");
+    // }
   };
 
-  const handleDeleteCompleted = async () => {
-    const deletedResponse = await todoApi.deleteCompletedTodos();
+  //   const handleDeleteCompleted = async () => {
+  //     const deletedResponse = await todoApi.deleteCompletedTodos();
 
-    if (deletedResponse.success) {
-      router.refresh();
-    }
-  };
+  //     if (deletedResponse.success) {
+  //       router.refresh();
+  //     }
+  //   };
 
   return (
     <form className="flex w-full" onSubmit={handleSubmit}>
@@ -46,7 +52,7 @@ export const TodoForm = () => {
       <span className="flex flex-1"></span>
 
       <button
-        onClick={handleDeleteCompleted}
+        onClick={() => deleteCompletedTodosAction()}
         type="button"
         className="flex items-center gap-3  rounded-lg text-sm px-3 py-3 bg-red-400 p-2 text-white hover:bg-red-700 transition-all"
       >
