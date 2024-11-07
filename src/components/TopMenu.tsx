@@ -1,6 +1,19 @@
-import { CiBellOn, CiChat1, CiMenuBurger, CiSearch } from "react-icons/ci";
+import { cookies } from "next/headers";
+import { CiChat1, CiMenuBurger, CiSearch, CiShoppingBasket } from "react-icons/ci";
 
-export const TopMenu = () => {
+export const TopMenu = async () => {
+
+  const cookieStore = await cookies();
+  const cart = JSON.parse(cookieStore.get("cart")?.value ?? '{}')
+
+  const getTotalProducts = () => {
+    let items = 0;
+    Object.values(cart).forEach((value) => {
+      items += value as number;
+    });
+    return items;
+  }
+
   return (
     <div className="sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
       <div className="px-6 flex items-center justify-between space-x-4">
@@ -32,8 +45,9 @@ export const TopMenu = () => {
           <button className="flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
             <CiChat1 size={25} />
           </button>
-          <button className="flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
-            <CiBellOn size={25} />
+          <button className="flex items-center justify-center  h-10 p-2 gap-2 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200">
+            <span className="text-sm  text-blue-800 font-bold">{ getTotalProducts() }</span>
+            <CiShoppingBasket size={25} />
           </button>
         </div>
       </div>

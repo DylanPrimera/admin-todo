@@ -10,6 +10,8 @@ export const metadata: Metadata = {
 export default async function CookiesPage() {
   const cookieStore = await cookies();
   const selectedTab = cookieStore.get("selectedTab")?.value;
+  
+  
   return (
     <div className="grid sm:grid-cols-1 lg:grid-cols-2  gap-3">
       <div className="flex flex-col">

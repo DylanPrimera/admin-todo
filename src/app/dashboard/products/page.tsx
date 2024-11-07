@@ -1,8 +1,9 @@
+import { ProductsGrid } from "@/products";
 
 export default function ProductsPage() {
   return (
     <div>
-      <h1>Products Page</h1>
+      <ProductsGrid/>
     </div>
   );
 }
