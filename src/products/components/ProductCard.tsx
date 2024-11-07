@@ -61,7 +61,7 @@ export const ProductCard = ({ product }: Props) => {
         </div>
         <div className="flex items-center justify-between">
           <span className="text-3xl font-bold text-gray-900 ">
-            ${product.price}
+            ${product.price.toFixed(2)}
           </span>
 
           <div className="flex">

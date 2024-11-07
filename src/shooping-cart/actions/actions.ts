@@ -6,25 +6,24 @@ export const getShoppingCart = (): { [id: string]: number } => {
   if (hasCookie("cart")) {
     return JSON.parse(getCookie("cart") as string);
   } else {
-    return {};JSON.parse(getCookie("cart") as string ?? '{}');
+    return {};
   }
 };
 
 export const addProductToCart = (id: string) => {
-    const cart = getShoppingCart();
-    if (cart[id]) {
-      cart[id] += 1;
-    } else {
-      cart[id] = 1;
-    }
-    setCookie("cart", JSON.stringify(cart));
+  const cart = getShoppingCart();
+  if (cart[id]) {
+    cart[id] += 1;
+  } else {
+    cart[id] = 1;
+  }
+  setCookie("cart", JSON.stringify(cart));
 };
-
 
 export const removeProductFromCart = (id: string) => {
   const cart = getShoppingCart();
-  if(cart[id]) {
+  if (cart[id]) {
     delete cart[id];
     setCookie("cart", JSON.stringify(cart));
   }
-}
+};
