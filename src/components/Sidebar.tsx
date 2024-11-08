@@ -1,10 +1,14 @@
 import Image from "next/image";
 import { CiLogout } from "react-icons/ci";
 import { SidebarItem } from "./SidebarItem";
-import { IoCalendarOutline, IoCheckboxOutline, IoListOutline } from "react-icons/io5";
-import { FaCookie } from "react-icons/fa";
-import { PiCarThin } from "react-icons/pi";
+import {
+  IoBagOutline,
+  IoCalendarOutline,
+  IoCheckboxOutline,
+  IoListOutline,
+} from "react-icons/io5";
 
+import { PiCookieDuotone } from "react-icons/pi";
 
 const sidebarItems = [
   {
@@ -25,12 +29,12 @@ const sidebarItems = [
   {
     name: "Cookies",
     path: "/dashboard/cookies",
-    icon: <FaCookie size={20} />,
+    icon: <PiCookieDuotone size={20} />,
   },
   {
     name: "Products",
     path: "/dashboard/products",
-    icon: <PiCarThin size={20} />,
+    icon: <IoBagOutline size={20} />,
   },
 ];
 
@@ -66,10 +70,8 @@ export const Sidebar = () => {
 
         <ul className="space-y-2 tracking-wide mt-8">
           {sidebarItems.map((item) => (
-            <SidebarItem key={item.path} {...item}/>
-
+            <SidebarItem key={item.path} {...item} />
           ))}
-
         </ul>
       </div>
 
