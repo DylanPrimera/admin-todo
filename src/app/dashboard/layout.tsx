@@ -1,6 +1,6 @@
 import { Sidebar, TopMenu } from "@/components";
-import { auth } from "../../../auth";
 import { redirect } from "next/navigation";
+import { getServerSessionUser } from "@/auth";
 
 
 export default async function DashboardLayout({
@@ -9,8 +9,8 @@ export default async function DashboardLayout({
   children: React.ReactNode;
 }) {
 
-  const session = await auth();
-  if(!session?.user) {
+  const user = await getServerSessionUser()
+  if(!user) {
     redirect('/api/auth/signin');
   }
   return (

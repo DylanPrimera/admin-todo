@@ -1,4 +1,4 @@
-import { ApiResponse } from "@/types";
+import { ApiResponse } from "@/app-types";
 import { Todo } from "@prisma/client";
 
 const sleep = (seconds: number = 0): Promise<boolean> => {

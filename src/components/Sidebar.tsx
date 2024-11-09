@@ -6,6 +6,7 @@ import {
   IoCalendarOutline,
   IoCheckboxOutline,
   IoListOutline,
+  IoPersonOutline,
 } from "react-icons/io5";
 
 import { PiCookieDuotone } from "react-icons/pi";
@@ -37,6 +38,11 @@ const sidebarItems = [
     path: "/dashboard/products",
     icon: <IoBagOutline size={20} />,
   },
+  {
+    name: "Profile",
+    path: "/dashboard/profile",
+    icon: <IoPersonOutline size={20} />,
+  }
 ];
 
 export const Sidebar = async () => {
@@ -58,7 +64,7 @@ export const Sidebar = async () => {
         </div>
 
         <div className="mt-8 text-center">
-          {session?.user !== undefined ? (
+          {session?.user.image !== null ? (
             <Image
               src={session?.user?.image as string}
               alt={session?.user?.name as string}
@@ -69,7 +75,7 @@ export const Sidebar = async () => {
           ) : (
             <Image
               src="https://tailus.io/sources/blocks/stats-cards/preview/images/second_user.webp"
-              alt=""
+              alt="default-image"
               className="w-10 h-10 m-auto rounded-full object-cover lg:w-28 lg:h-28"
               width={150}
               height={150}
@@ -79,7 +85,7 @@ export const Sidebar = async () => {
           <h5 className="hidden mt-4 text-xl font-semibold text-gray-600 lg:block">
             {session?.user?.name !== null ? session?.user?.name : "Not logged"}
           </h5>
-          <span className="hidden text-gray-400 lg:block">Admin</span>
+          <span className="hidden text-gray-400 lg:block capitalize">{session?.user?.roles[0] ?? 'user'}</span>
         </div>
 
         <ul className="space-y-2 tracking-wide mt-8">

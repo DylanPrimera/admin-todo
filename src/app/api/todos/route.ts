@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import * as yup from "yup";
 
+
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const take = +(searchParams.get("take") ?? "10");
@@ -21,6 +23,9 @@ export async function GET(request: Request) {
   const todos = await prisma.todo.findMany({
     take: take,
     skip: skip,
+    where: {
+      userId: '1',
+    },
   });
   return NextResponse.json({ success: true, data: todos });
 }
