@@ -15,11 +15,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "email", type: "email", placeholder: "Type ur email" },
+        email: { label: "Email", type: "email", placeholder: "Type ur email" },
         password: {
-          label: "password",
+          label: "Password",
           type: "password",
-          placeholder: "password",
+          placeholder: "*****",
         },
       },
       async authorize(credentials) {

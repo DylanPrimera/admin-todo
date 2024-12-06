@@ -29,7 +29,7 @@ export const addTodoAction = async (description: string): Promise<Todo> => {
     {
       data: {
         description,
-        userId: user?.id,
+        userId: user?.id ?? '',
       }
     }
   );
